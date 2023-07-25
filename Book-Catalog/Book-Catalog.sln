@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BC.Application", "BC.Applic
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BC.Infrastructure", "BC.Infrastructure", "{716A3837-4054-4B14-9E78-C7C54854544B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewFolder1", "NewFolder1", "{32130E7D-FBDC-49EF-985E-A1D83A358F43}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BC.Presentation", "BC.Presentation", "{32130E7D-FBDC-49EF-985E-A1D83A358F43}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
