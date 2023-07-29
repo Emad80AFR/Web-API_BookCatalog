@@ -1,0 +1,59 @@
+﻿@page
+@model EditModel
+@{
+}
+
+@{
+    ViewData["title"] = "ویرایش کتاب";
+}
+
+
+<div class="row" id="ProductCategoriesDiv">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">ویرایش کتاب</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <form method="post">
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="Book.Title" class="control-label">عنوان</label>
+                                            <input type="text" class="form-control" asp-for="Book.Title">
+                                            <span asp-validation-for="Book.Title" class="error"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="Book.Author" class="control-label">نویسنده</label>
+                                            <input type="text" class="form-control" asp-for="Book.Author">
+                                            <span asp-validation-for="Book.Author" class="error"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label asp-for="Book.PublishDate" class="control-label">تاریخ انتشار</label>
+                                            <input type="text" class="form-control" asp-for="Book.PublishDate">
+                                            <span asp-validation-for="Book.PublishDate" class="error"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" asp-for="Book.Id" value="@Model.Book.Id"/>
+                            <div >
+                                <button type="submit" class="btn btn-info waves-effect waves-light">ویرایش</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

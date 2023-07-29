@@ -1,0 +1,56 @@
+﻿@page
+@model CreateModel
+@{
+}
+
+@{
+    ViewData["title"] = "ایجاد کتاب";
+}
+
+<div class="row" id="ProductCategoriesDiv">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">ایجاد کتاب جدید</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <form method="post">
+                            <div >
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="Command.Title" class="control-label">عنوان</label>
+                                            <input type="text" class="form-control" asp-for="Command.Title">
+                                            <span asp-validation-for="Command.Title" class="error"></span>
+                                        </div>
+                                    </div><div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="Command.Author" class="control-label">نویسنده</label>
+                                            <input type="text" class="form-control" asp-for="Command.Author">
+                                            <span asp-validation-for="Command.Author" class="error"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label asp-for="Command.PublishDate" class="control-label">تاریخ انتشار</label>
+                                            <input type="text" class="form-control" asp-for="Command.PublishDate">
+                                            <span asp-validation-for="Command.PublishDate" class="error"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-info waves-effect waves-light">ایجاد</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
