@@ -71,6 +71,12 @@
                                                 <i class="fa fa-edit"></i> ویرایش
                                             </a>
                                         </td>
+                                        <td>
+                                            <a class="btn btn-danger pull-right m-rl-5"
+                                           asp-page="Index" asp-page-handler="Delete" asp-route-id="@item.Id">
+                                                <i class="fa fa-edit"></i> حذف
+                                            </a>
+                                        </td>
                                     </tr>
                                 }
                             </tbody>
