@@ -117,4 +117,32 @@ public class BookRepository:BaseRepository<long,Book>,IBookRepository
             throw;
         }
     }
+
+    public async Task<List<BookViewModel>> GetAllBooksBy(BookSearchModel searchModel, CancellationToken cancellationToken)
+    {
+        try
+        {
+            _logger.LogInformation("Fetching data from database ");
+            var books =  _bookCatalogDbContext.Books.Select(x => new BookViewModel()
+            {
+                Author = x.Author,
+                Id = x.Id,
+                PublishYear = x.PublishYear,
+                Title = x.Title,
+            });
+            if (!string.IsNullOrWhiteSpace(searchModel.Title))
+                books = books.Where(x => x.Title.Contains(searchModel.Title));
+
+            if (books != null)
+                _logger.LogInformation("Books retrieved successfully.");
+            else
+                _logger.LogWarning("Books retrieved unsuccessfully.");
+            return await books!.ToListAsync(cancellationToken);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "An error occurred while fetching data");
+            throw;
+        }
+    }
 }

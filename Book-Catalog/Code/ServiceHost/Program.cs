@@ -1,3 +1,4 @@
+using BC.Api.Endpoint;
 using BC.Application.Contract.Book;
 using BC.Application.Implementation;
 using BC.Domain.BookAgg;
@@ -8,11 +9,12 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages().AddApplicationPart(typeof(BookCatalogController).Assembly);
 var connectionString = builder.Configuration.GetConnectionString("MyConnectionString");
 builder.Services.AddDbContext<BookCatalogDbContext>(x => x.UseSqlServer(connectionString));
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IBookApplication, BookApplication>();
+builder.Services.AddMemoryCache();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -31,5 +33,6 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+app.MapControllers();
 
 app.Run();

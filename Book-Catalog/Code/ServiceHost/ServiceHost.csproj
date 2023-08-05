@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>2d9bb879-6c35-4e2f-a0f3-cefc16b43e29</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,6 +30,7 @@
     <ProjectReference Include="..\BookCatalog.Management\BC.Application\BC.Application.Contract\BC.Application.Contract.csproj" />
     <ProjectReference Include="..\BookCatalog.Management\BC.Application\BC.Application.Implementation\BC.Application.Implementation.csproj" />
     <ProjectReference Include="..\BookCatalog.Management\BC.Infrastructure\BC.Infrastructure.EFCore\BC.Infrastructure.EFCore.csproj" />
+    <ProjectReference Include="..\BookCatalog.Management\BC.Presentation\BC.Api.Endpoint\BC.Api.Endpoint.csproj" />
   </ItemGroup>
 
   <ItemGroup>

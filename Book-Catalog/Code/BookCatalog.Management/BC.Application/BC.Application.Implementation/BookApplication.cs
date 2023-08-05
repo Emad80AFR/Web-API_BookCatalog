@@ -69,5 +69,10 @@ namespace BC.Application.Implementation
         {
             return await _repository.GetAllBooks(cancellationToken);
         }
+
+        public async Task<List<BookViewModel>> GetAllBooksBy(BookSearchModel search, CancellationToken cancellationToken)
+        {
+           return await _repository.GetAllBooksBy(search, cancellationToken);
+        }
     }
 }

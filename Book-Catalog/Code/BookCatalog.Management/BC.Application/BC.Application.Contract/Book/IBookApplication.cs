@@ -9,5 +9,8 @@ public interface IBookApplication
     Task DeleteBook(long id, CancellationToken cancellationToken);
     Task<BookViewModel> GetBook(long id, CancellationToken cancellationToken);
     Task<EditBook> GetBookDetail(long id, CancellationToken cancellationToken);
+    Task<List<BookViewModel>> GetAllBooksBy(BookSearchModel search,CancellationToken cancellationToken);
     Task<List<BookViewModel>> GetAllBooks(CancellationToken cancellationToken);
+
+
 }

@@ -9,4 +9,9 @@ public class BaseClass<T>
     {
         CreationDate = DateTime.Now;
     }
+    public BaseClass(long id)
+    {
+        CreationDate = DateTime.Now;
+        Id = Id;
+    }
 }

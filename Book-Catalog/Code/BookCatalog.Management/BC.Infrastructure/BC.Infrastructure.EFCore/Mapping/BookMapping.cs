@@ -13,5 +13,11 @@ public class BookMapping:IEntityTypeConfiguration<Book>
 
         builder.Property(x => x.Title).HasMaxLength(256).IsRequired();
         builder.Property(x => x.Author).HasMaxLength(256).IsRequired();
+
+
+        //builder.HasData(
+        //    new Book(-1,"شاهنامه", "فردوسی", new DateTime(1821, 6, 10)),
+        //    new Book(-2,"لغت نامه دهخدا", "دهخدا", new DateTime(1920, 8, 24)));
+
     }
 }
