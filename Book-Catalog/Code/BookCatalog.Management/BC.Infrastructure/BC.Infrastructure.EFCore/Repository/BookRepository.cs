@@ -7,12 +7,13 @@ using Microsoft.Extensions.Logging;
 
 namespace BC.Infrastructure.EFCore.Repository;
 
-public class BookRepository:BaseRepository<long,Book>,IBookRepository
+public class BookRepository : BaseRepository<long, Book>, IBookRepository
 {
-    private readonly ILogger<BookRepository> _logger;
     private readonly BookCatalogDbContext _bookCatalogDbContext;
+    private readonly ILogger<BookRepository> _logger;
 
-    public BookRepository(ILogger<BookRepository> logger, BookCatalogDbContext bookCatalogDbContext):base(bookCatalogDbContext,logger)
+    public BookRepository(ILogger<BookRepository> logger, BookCatalogDbContext bookCatalogDbContext) : base(
+        bookCatalogDbContext, logger)
     {
         _logger = logger;
         _bookCatalogDbContext = bookCatalogDbContext;
@@ -22,23 +23,23 @@ public class BookRepository:BaseRepository<long,Book>,IBookRepository
     {
         try
         {
-            _logger.LogInformation("Fetching data from database by id:{id}",id);
-        var book=  await _bookCatalogDbContext.Books.Select(x => new BookViewModel()
+            _logger.LogInformation("Fetching data from database by id:{id}", id);
+            var book = await _bookCatalogDbContext.Books.Select(x => new BookViewModel
             {
                 Author = x.Author,
                 Id = x.Id,
                 PublishYear = x.PublishYear,
-                Title = x.Title,
-            }).FirstOrDefaultAsync(x => x.Id == id, cancellationToken: cancellationToken);
-          if (book != null)
-              _logger.LogInformation("Book retrieved successfully. Book ID: {BookId}", book.Id);
-          else
-              _logger.LogWarning("No Book found with ID: {BookId}", id);
-          return book;
+                Title = x.Title
+            }).FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+            if (book != null)
+                _logger.LogInformation("Book retrieved successfully. Book ID: {BookId}", book.Id);
+            else
+                _logger.LogWarning("No Book found with ID: {BookId}", id);
+            return book;
         }
         catch (Exception e)
         {
-            _logger.LogError(e,"An error occurred while fetching data");
+            _logger.LogError(e, "An error occurred while fetching data");
             throw;
         }
     }
@@ -48,13 +49,13 @@ public class BookRepository:BaseRepository<long,Book>,IBookRepository
         try
         {
             _logger.LogInformation("Fetching data from database by id:{id}", id);
-            var book = await _bookCatalogDbContext.Books.Select(x => new EditBook()
+            var book = await _bookCatalogDbContext.Books.Select(x => new EditBook
             {
                 Author = x.Author,
                 Id = x.Id,
                 PublishDate = x.PublishYear.ToString(CultureInfo.InvariantCulture),
-                Title = x.Title,
-            }).FirstOrDefaultAsync(x => x.Id == id, cancellationToken: cancellationToken);
+                Title = x.Title
+            }).FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
             if (book != null)
                 _logger.LogInformation("Book retrieved successfully. Book ID: {BookId}", book.Id);
             else
@@ -73,12 +74,12 @@ public class BookRepository:BaseRepository<long,Book>,IBookRepository
         try
         {
             _logger.LogInformation("Fetching data from database ");
-            var books = await _bookCatalogDbContext.Books.Select(x => new BookViewModel()
+            var books = await _bookCatalogDbContext.Books.Select(x => new BookViewModel
             {
                 Author = x.Author,
                 Id = x.Id,
                 PublishYear = x.PublishYear,
-                Title = x.Title,
+                Title = x.Title
             }).ToListAsync(cancellationToken);
             if (books != null)
                 _logger.LogInformation("Books retrieved successfully.");
@@ -98,18 +99,18 @@ public class BookRepository:BaseRepository<long,Book>,IBookRepository
         try
         {
             _logger.LogInformation("Fetching data from database by id:{id} for deleting ", id);
-            var book = await _bookCatalogDbContext.Books.FirstOrDefaultAsync(x => x.Id == id, cancellationToken: cancellationToken);
+            var book = await _bookCatalogDbContext.Books.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
             if (book != null)
             {
                 _logger.LogInformation("Book retrieved successfully. Book ID: {BookId} ", book.Id);
                 _bookCatalogDbContext.Books.Remove(book);
                 _logger.LogInformation("Book deleted successfully. Book ID: {BookId} ", book.Id);
-
             }
 
             else
+            {
                 _logger.LogWarning("No Book found with ID: {BookId} for deleting", id);
-            
+            }
         }
         catch (Exception e)
         {
@@ -118,17 +119,18 @@ public class BookRepository:BaseRepository<long,Book>,IBookRepository
         }
     }
 
-    public async Task<List<BookViewModel>> GetAllBooksBy(BookSearchModel searchModel, CancellationToken cancellationToken)
+    public async Task<List<BookViewModel>> GetAllBooksBy(BookSearchModel searchModel,
+        CancellationToken cancellationToken)
     {
         try
         {
             _logger.LogInformation("Fetching data from database ");
-            var books =  _bookCatalogDbContext.Books.Select(x => new BookViewModel()
+            var books = _bookCatalogDbContext.Books.Select(x => new BookViewModel
             {
                 Author = x.Author,
                 Id = x.Id,
                 PublishYear = x.PublishYear,
-                Title = x.Title,
+                Title = x.Title
             });
             if (!string.IsNullOrWhiteSpace(searchModel.Title))
                 books = books.Where(x => x.Title.Contains(searchModel.Title));

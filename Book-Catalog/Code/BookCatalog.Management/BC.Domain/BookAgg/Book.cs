@@ -2,19 +2,19 @@
 
 namespace BC.Domain.BookAgg;
 
-public class Book:BaseClass<long>
+public class Book : BaseClass<long>
 {
-    public string Title { get;  set; }
-    public string Author { get;  set; }
-    public DateTime PublishYear { get;  set; }
+    public Book()
+    {
+    }
 
-    public Book() { }
-    public Book(string title, string author,DateTime publishYear)
+    public Book(string title, string author, DateTime publishYear)
     {
         Title = title;
         Author = author;
         PublishYear = publishYear;
     }
+
     public Book(long id, string title, string author, DateTime publishYear) : base(id)
     {
         Title = title;
@@ -22,11 +22,14 @@ public class Book:BaseClass<long>
         PublishYear = publishYear;
     }
 
-    public void Edit(string title, string author,DateTime publishYear)
+    public string Title { get; set; }
+    public string Author { get; set; }
+    public DateTime PublishYear { get; set; }
+
+    public void Edit(string title, string author, DateTime publishYear)
     {
         Title = title;
         Author = author;
         PublishYear = publishYear;
     }
-
 }

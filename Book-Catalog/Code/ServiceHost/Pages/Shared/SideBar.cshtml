@@ -1,0 +1,21 @@
+﻿
+@inject IStringLocalizer<Program> Localizer
+<div class="left side-menu">
+    <div class="sidebar-inner slimscrollleft">
+
+        <div id="sidebar-menu">
+            <ul>
+                <li>
+                    <a asp-page="/Index" class="waves-effect active">
+                        <i class="md md-home"></i><span> @Localizer["Home"] </span>
+                    </a>
+                </li>
+                <li>
+                    @await Component.InvokeAsync("CulturePicker")
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

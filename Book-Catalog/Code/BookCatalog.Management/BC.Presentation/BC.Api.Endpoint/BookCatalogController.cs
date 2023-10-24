@@ -2,62 +2,62 @@
 using BC.Application.Contract.Book.DTO_s;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Logging;
 
-namespace BC.Api.Endpoint
+namespace BC.Api.Endpoint;
+
+[ApiController]
+[Route("api/[controller]")]
+public class BookCatalogController : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class BookCatalogController : ControllerBase
+    private readonly IBookApplication _application;
+
+
+    private readonly IMemoryCache _cache;
+
+    public BookCatalogController(IBookApplication application, IMemoryCache cache)
     {
+        _cache = cache;
+        _application = application;
+    }
 
-
-        private readonly IMemoryCache _cache;
-        private readonly IBookApplication _application;
-
-        public BookCatalogController( IBookApplication application,IMemoryCache cache)
+    [HttpGet]
+    public async Task<IActionResult> GetAsync(CancellationToken cancellationToken)
+    {
+        if (!_cache.TryGetValue("allBooks", out IEnumerable<BookViewModel> books))
         {
-            _cache=cache;
-            _application = application;
+            books = await _application.GetAllBooks(cancellationToken);
 
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetAsync(CancellationToken cancellationToken)
-        {
-            if (!_cache.TryGetValue("allBooks", out IEnumerable<BookViewModel> books))
+            var cacheEntryOptions = new MemoryCacheEntryOptions
             {
-               books= await _application.GetAllBooks(cancellationToken);
+                SlidingExpiration = TimeSpan.FromMinutes(10)
+            };
+            _cache.Set("allBooks", books, cacheEntryOptions);
+        }
 
-                var cacheEntryOptions = new MemoryCacheEntryOptions
-                {
-                    SlidingExpiration = TimeSpan.FromMinutes(10)
-                };
-                _cache.Set("allBooks", books, cacheEntryOptions);
+        return Ok(books);
+    }
 
-            }
-            return Ok(books);
+    [HttpGet("{id}")]
+    public async Task<BookViewModel> GetByAsync(long id, CancellationToken cancellationToken)
+    {
+        return await _application.GetBook(id, cancellationToken);
+    }
 
-        }
-        [HttpGet("{id}")]
-        public async Task<BookViewModel> GetByAsync(long id,CancellationToken cancellationToken)
-        {
-            return await _application.GetBook(id,cancellationToken);
-        }
-        [HttpDelete("{id}")]
-        public async Task DeleteAsync(long id,CancellationToken cancellationToken)
-        {
-            await _application.DeleteBook(id, cancellationToken);
-        }
-        [HttpPost]
-        public async Task CreateBook(CreateBook command,CancellationToken cancellationToken)
-        {
-            await _application.CreateBook(command, cancellationToken);
-        }
-        [HttpPut("{id}")]
-        public async Task EditBook(EditBook command,CancellationToken cancellationToken)
-        {
-            await _application.EditBook(command, cancellationToken);
-        }
+    [HttpDelete("{id}")]
+    public async Task DeleteAsync(long id, CancellationToken cancellationToken)
+    {
+        await _application.DeleteBook(id, cancellationToken);
+    }
+
+    [HttpPost]
+    public async Task CreateBook(CreateBook command, CancellationToken cancellationToken)
+    {
+        await _application.CreateBook(command, cancellationToken);
+    }
+
+    [HttpPut("{id}")]
+    public async Task EditBook(int? id, EditBook command, CancellationToken cancellationToken)
+    {
+        await _application.EditBook(command, cancellationToken);
     }
 }

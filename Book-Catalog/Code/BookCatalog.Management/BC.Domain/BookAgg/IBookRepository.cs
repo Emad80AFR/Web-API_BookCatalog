@@ -3,12 +3,12 @@ using FrameWork.Domain;
 
 namespace BC.Domain.BookAgg;
 
-public interface IBookRepository:IBaseRepository<long,Book>
+public interface IBookRepository : IBaseRepository<long, Book>
 {
-    Task<BookViewModel?> GetByBookId(long id,CancellationToken cancellationToken);
-    Task<EditBook?> GetBookDetail(long id,CancellationToken cancellationToken);
+    Task<BookViewModel?> GetByBookId(long id, CancellationToken cancellationToken);
+    Task<EditBook?> GetBookDetail(long id, CancellationToken cancellationToken);
     Task<List<BookViewModel>> GetAllBooks(CancellationToken cancellationToken);
-    Task<List<BookViewModel>> GetAllBooksBy(BookSearchModel searchModel,CancellationToken cancellationToken);
+    Task<List<BookViewModel>> GetAllBooksBy(BookSearchModel searchModel, CancellationToken cancellationToken);
 
-    Task DeleteBook(long id,CancellationToken cancellationToken);
+    Task DeleteBook(long id, CancellationToken cancellationToken);
 }
